@@ -1,0 +1,40 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Sign Up</h2>
+
+        <!-- Перехід на логін і домашню сторінку -->
+        <p>
+            Already have an account? <a href="{% url 'users:signin' %}">Sign in</a> |
+            <a href="{% url 'quotes:root' %}">Go to home page</a>
+        </p>
+
+        <!-- Форма реєстрації -->
+        <form method="post" action="{% url 'users:signup' %}">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+                {{ form.password1.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+{% endblock %}
