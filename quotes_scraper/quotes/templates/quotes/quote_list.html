@@ -1,0 +1,38 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+<h2>Список цитат</h2>
+
+<!-- Кнопка додавання нової цитати -->
+{% if user.is_authenticated %}
+<div class="pt-3 mb-3">
+    <a href="{% url 'quotes:add_quote' %}" class="btn btn-secondary">Додати нову цитату</a>
+</div>
+{% endif %}
+
+<!-- Форма пошуку -->
+<div class="pt-3 mb-3">
+    <form method="get" action="{% url 'quotes:search' %}">
+        <input type="text" name="q" placeholder="Пошук за тегами" value="{{ request.GET.q }}" class="form-control">
+        <button type="submit" class="btn btn-primary mt-2">Пошук</button>
+    </form>
+</div>
+
+<!-- Список цитат -->
+<ul>
+    {% for quote in quotes %}
+    <li class="quote" itemscope itemtype="http://schema.org/CreativeWork">
+        <span class="text" itemprop="text">{{ quote.quote }}</span>
+        <div class="tags mt-2">
+            Tags:
+            {% for tag in quote.tags.all %}
+            <a class="tag" href="{% url 'quotes:tag_detail' tag.id %}">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    </li>
+    {% empty %}
+    <li>Цитати не знайдені.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

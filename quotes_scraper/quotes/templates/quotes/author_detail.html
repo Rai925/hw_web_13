@@ -1,0 +1,32 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}{{ author.fullname }}{% endblock %}
+
+{% block content %}
+<div class="container author-details">
+    <h1 class="author-name">{{ author.fullname }}</h1>
+    <p><strong>Born:</strong> {{ author.born_date }} in {{ author.born_location }}</p>
+    <p><strong>Description:</strong> {{ author.description|linebreaks }}</p>
+    <p><strong>See also:</strong> {{ author.see_also }}</p>
+    <a href="{% url 'quotes:author_list' %}" class="btn btn-secondary mb-3">Back to Author List</a>
+
+    <h2>Quotes by {{ author.fullname }}</h2>
+    {% if author.quotes.exists %}
+    <ul class="list-group">
+        {% for quote in author.quotes.all %}
+        <li class="list-group-item">
+            <p class="quote-text">{{ quote.quote }}</p>
+            <div class="tags">
+                Tags:
+                {% for tag in quote.tags.all %}
+                <a class="badge bg-primary text-white" href="{% url 'quotes:tag_detail' tag.id %}">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No quotes found.</p>
+    {% endif %}
+</div>
+{% endblock %}

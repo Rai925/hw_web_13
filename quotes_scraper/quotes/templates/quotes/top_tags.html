@@ -1,0 +1,15 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+<h2>Топ 10 тегів</h2>
+<ul>
+    {% for tag in tags %}
+    <li>
+        <a href="{% url 'quotes:tag_detail' tag.id %}">{{ tag.name }} ({{ tag.num_quotes }})</a>
+    </li>
+    {% empty %}
+    <li>Теги не знайдені.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'quotes:quote_list' %}">Повернутися до списку цитат</a>
+{% endblock %}

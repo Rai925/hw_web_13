@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "wh-web-10-django"
+version = "0.1.0"
+description = ""
+authors = ["Rai <154880397+Rai925@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.7"
+psycopg2-binary = "^2.9.9"
+pymongo = "^4.8.0"
+gunicorn = "^22.0.0"
+psycopg2 = "^2.9.9"
+django-allauth = "^64.0.0"
+django-environ = "^0.11.2"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,21 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+<h2>Цитати з тегом "{{ tag.name }}"</h2>
+<ul>
+    {% for quote in quotes %}
+    <li class="quote" itemscope itemtype="http://schema.org/CreativeWork">
+        <span class="text" itemprop="text">{{ quote.quote }}</span>
+        <div class="tags">
+            Tags:
+            {% for tag in quote.tags.all %}
+            <a class="tag" href="{% url 'quotes:tag_detail' tag.id %}">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    </li>
+    {% empty %}
+    <li>Цитати не знайдені.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'quotes:quote_list' %}">Повернутися до списку цитат</a>
+{% endblock %}

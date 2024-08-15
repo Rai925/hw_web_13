@@ -1,0 +1,25 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}Authors{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">Authors</h1>
+
+    {% if user.is_authenticated %}
+    <div class="mb-3">
+        <a href="{% url 'quotes:add_author' %}" class="btn btn-secondary">Add Author</a>
+    </div>
+    {% endif %}
+
+    <ul class="list-group">
+        {% for author in authors %}
+        <li class="list-group-item">
+            <a href="{% url 'quotes:author_detail' author.id %}">{{ author.fullname }}</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No authors found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

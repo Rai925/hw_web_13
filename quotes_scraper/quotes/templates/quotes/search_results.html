@@ -1,0 +1,28 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+<h2>Search Results</h2>
+
+<form method="get" action="{% url 'quotes:search_by_tag' %}">
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+</form>
+
+{% if quotes %}
+    <ul>
+        {% for quote in quotes %}
+            <li>
+                <span class="text">{{ quote.quote }}</span>
+                <div class="tags">
+                    Tags:
+                    {% for tag in quote.tags.all %}
+                        <a class="tag" href="{% url 'quotes:tag_detail' tag.id %}">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No quotes found.</p>
+{% endif %}
+{% endblock %}
